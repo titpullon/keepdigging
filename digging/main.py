@@ -2,6 +2,7 @@
 
 from tornado import template
 from tornado.web import RequestHandler
+from tornado.gen import coroutine
 
 
 class MainHandler(RequestHandler):
@@ -13,8 +14,12 @@ class MainHandler(RequestHandler):
 
 class AboutHandler(RequestHandler):
 
+    @coroutine
     def get(self):
-        self.render("about.html")
+        db = self.settings["db"]
+        author = yield db.author_data.find_one()
+
+        self.render("about.html", author=author)
 
 
 class PostsHandler(RequestHandler):

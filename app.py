@@ -3,6 +3,7 @@
 import os
 import tornado.ioloop
 from tornado.web import url, StaticFileHandler, Application
+from motor import MotorClient
 
 from digging.main import MainHandler, PostsHandler, AboutHandler
 
@@ -18,7 +19,10 @@ handlers = [
 ]
 
 
+db = MotorClient("localhost", 27017).keepdigging_db
+
 params = {"template_path": "templates",
+          "db": db,
           "debug": True}
 
 
