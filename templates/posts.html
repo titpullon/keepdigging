@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Posts{% end %}
+
+{% block active-navig-item %}{% if item == "posts" %} active{% end %}{% end %}
+
+{% block main-header %}
+  <div class="blog-header">
+    <h1 class="blog-title">Keep Digging Blog</h1>
+    <p class="lead blog-description">Some things.</p>
+  </div>
+{% end %}
+
+{% block main-content %}
+  {% for post in posts %}
+    <div class="blog-post">
+      <h2 class="blog-post-title">{{ post["title"] }}</h2>
+      <p class="blog-post-meta">{{ post["date"] }}</p>
+      <p>{% raw post["body"] %}</p>
+      {% for tag in post["tags"] %}
+        <code>{{ tag }}</code>
+      {% end %}
+    </div>
+  {% end %}
+{% end %}

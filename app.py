@@ -1,26 +1,28 @@
 # -*- coding: utf-8 -*-
 
-import tornado.ioloop
-import tornado.web
-
-from digging.main import MainHandler
-
 import os
-print os.path.abspath(__file__), os.getcwd()
+import tornado.ioloop
+from tornado.web import url, StaticFileHandler, Application
+
+from digging.main import MainHandler, PostsHandler, AboutHandler
+
 
 static_path = os.path.join(os.getcwd(), "static")
-print static_path
 
 
 handlers = [
-    (r"/", MainHandler),
-    # (r"/static/(.*)", web.StaticFileHandler, {"path": "/var/www"}),
-    (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": static_path}),
+    url(r"/static/(.*)", StaticFileHandler, {"path": static_path}),
+    url(r"/", MainHandler),
+    url(r"/posts", PostsHandler, name="posts"),
+    url(r"/about", AboutHandler, name="about"),
 ]
 
-params = {}
 
-application = tornado.web.Application(handlers, **params)
+params = {"template_path": "templates",
+          "debug": True}
+
+
+application = Application(handlers, **params)
 
 
 if __name__ == "__main__":

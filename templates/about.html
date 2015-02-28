@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}About{% end %}
+
+{% block active-navig-item %}{% if item == "about" %} active{% end %}{% end %}
+
+{% block main-header %}
+  <div class="blog-header">
+    <h1 class="blog-title">About</h1>
+    <p class="lead blog-description">Author and contact info.</p>
+  </div>
+{% end %}
+
+{% block main-content %}
+  <p>Any info about different people.</p>
+{% end %}
+
+{% block paginator %}{% end %}
