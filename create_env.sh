@@ -7,4 +7,8 @@ if [ -d ".env" ]; then
 fi
 
 virtualenv .env
+
+.env/bin/easy_install --upgrade virtualenv
+.env/bin/easy_install pip
+
 .env/bin/pip install -r requirements.txt
